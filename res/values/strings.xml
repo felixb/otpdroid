@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_version">0.3.1</string>
+    <string name="app_version">1.0</string>
 	<string name="app_name">OTPdroid</string>
 	<string name="author_">Author:</string>
 	<string name="version_">Version:</string>
@@ -20,13 +20,21 @@
 	<string name="passphrase_">Passphrase</string>
 	<string name="passphrase_hint">your passphrase</string>
 	<string name="challange_">Challange</string>
-	<string name="challange_hint">(Otp-[md5|sha1] )123 abcdefgh</string>
+	<string name="method_promt">Hash method</string>
+	<string name="count_hint">99</string>
+	<string name="challange_hint">alpha1</string>
 	<string name="calculate_">Calculate</string>
 	<string name="response_">Response</string>
 	
 	<string name="save_passphrase_">Remember passphrase</string>
 	<string name="save_passphrase_hint">check to store passphrase (insecure!)</string>
 	
-	<string name="save_sequence_">Remember sequence</string>
+	<string name="save_sequence_">Remember challange</string>
 	
+	<string name="error_input">Wrong input!</string>
+	
+	<string-array name="hash_methods">
+		<item>sha1</item>
+		<item>md5</item>
+	</string-array>
 </resources>

@@ -11,9 +11,17 @@
 			android:singleLine="true" android:hint="@string/passphrase_hint" />
 		<TextView android:layout_width="wrap_content"
 			android:layout_height="wrap_content" android:text="@string/challange_" />
-		<EditText android:id="@+id/challenge" android:layout_width="fill_parent"
-			android:layout_height="wrap_content" android:singleLine="true"
-			android:hint="@string/challange_hint" />
+		<LinearLayout android:layout_width="fill_parent"
+			android:layout_height="wrap_content" android:orientation="horizontal">
+			<Spinner android:id="@+id/hash_method" android:layout_height="wrap_content"
+				android:layout_width="wrap_content" android:prompt="@string/method_promt" />
+			<EditText android:id="@+id/count" android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:singleLine="true"
+				android:hint="@string/count_hint" android:inputType="number" />
+			<EditText android:id="@+id/challenge" android:layout_width="fill_parent"
+				android:layout_height="wrap_content" android:singleLine="true"
+				android:hint="@string/challange_hint" />
+		</LinearLayout>
 		<Button android:id="@+id/calculate" android:layout_width="fill_parent"
 			android:layout_height="wrap_content" android:padding="5dip"
 			android:layout_marginLeft="5dip" android:layout_marginRight="5dip"
