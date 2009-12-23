@@ -1,0 +1,9 @@
+<PreferenceScreen
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	>
+	<CheckBoxPreference
+		android:title="Remember passhprase"
+		android:persistent="true"
+		android:key="checkboxStorePassphrase"
+		android:summary="check to store passhrase (insecure!)" />
+</PreferenceScreen>
