@@ -1,7 +1,5 @@
 package de.ub0r.android.otpdroid;
 
-import java.util.StringTokenizer;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -76,9 +74,6 @@ public class OTPdroid extends Activity implements BeerLicense {
 	@Override
 	public final void onCreate(final Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
-		boolean savePassphrase;
-
 		this.setContentView(R.layout.main);
 
 		this.passphrase = (EditText) this.findViewById(R.id.passphrase);
@@ -101,12 +96,7 @@ public class OTPdroid extends Activity implements BeerLicense {
 
 		final SharedPreferences settings = PreferenceManager
 				.getDefaultSharedPreferences(this);
-		savePassphrase = settings.getBoolean(OTPdroid.PREF_SAVEPASSPHRASE,
-				false);
-
-		if (savePassphrase && this.passphrase.getText().toString().length() < 1) {
-			this.loadPassphrase(settings);
-		}
+		this.loadPassphrase(settings);
 
 		this.calc.setOnClickListener(new Button.OnClickListener() {
 			public void onClick(final View v) {
@@ -224,7 +214,7 @@ public class OTPdroid extends Activity implements BeerLicense {
 		l = aes.decrypt();
 		if (l > 0) {
 			this.passphrase.setText(new String(aes.getOutput()));
-			this.challenge.requestFocus();
+			this.count.requestFocus();
 		}
 
 		aes = new AES();
@@ -243,6 +233,7 @@ public class OTPdroid extends Activity implements BeerLicense {
 		l = aes.decrypt();
 		if (l > 0) {
 			this.count.setText(new String(aes.getOutput()));
+			this.challenge.requestFocus();
 		}
 
 		aes = new AES();
