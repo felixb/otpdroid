@@ -49,6 +49,8 @@ public class OTPdroid extends Activity implements BeerLicense {
 	public static final String PREF_SAVEDCOUNT = "savedCount";
 	/** Pref: saved hash method. */
 	public static final String PREF_SAVEDHASHMETHOD = "savedHashMethod";
+	/** Preference's name: last version run */
+	private static final String PREFS_LAST_RUN = "lastrun";
 
 	/** Phone's imei. */
 	private String imei = null;
@@ -96,6 +98,14 @@ public class OTPdroid extends Activity implements BeerLicense {
 
 		final SharedPreferences settings = PreferenceManager
 				.getDefaultSharedPreferences(this);
+		final String v0 = settings.getString(PREFS_LAST_RUN, "");
+		final String v1 = this.getString(R.string.app_version);
+		if (!v0.equals(v1)) {
+			final SharedPreferences.Editor editor = settings.edit();
+			editor.putString(PREFS_LAST_RUN, v1);
+			editor.commit();
+			this.showDialog(DIALOG_UPDATE);
+		}
 		this.loadPassphrase(settings);
 
 		this.calc.setOnClickListener(new Button.OnClickListener() {
