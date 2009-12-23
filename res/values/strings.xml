@@ -1,7 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    
-    <string name="app_name">Opiekey</string>
-
-
+    <string name="app_version">0.3.1</string>
+	<string name="app_name">OTPdroid</string>
+	<string name="author_">Author:</string>
+	<string name="version_">Version:</string>
+	<string name="license_">License:</string>
+	<string name="author">Felix Bechstein &lt;f@ub0r.de&gt;</string>
+	<string name="license">BeerLicense 1.03 - see http://en.wikipedia.org/wiki/Beerware</string>
+	<string name="source_">Sourcescode:</string>
+	<string name="source">http://repo.or.cz/w/otpdroid.git</string>
+	<string name="website_">Website:</string>
+	<string name="website">none yet</string>
+	<string name="about_">About OTPdroid</string>
+	<string name="about">OTPdroid generates OTP passwords. Supporting MD5 and SHA1 hash methods. This is a fork of Opiekey http://android.f00d.nl/opiekey/ written by Daniel Tryba. He took some code from Harry Mantakos\'s jotp http://www.cs.umd.edu/~harry/jotp/</string>
+	<string name="changelog_">Changelog</string>
+	<string name="more_">More Apps..</string>
+	<string name="settings">Preferences</string>
+	
+	<string name="passphrase_">Passphrase</string>
+	<string name="passphrase_hint">your passphrase</string>
+	<string name="challange_">Challange</string>
+	<string name="challange_hint">(Otp-[md5|sha1] )123 abcdefgh</string>
+	<string name="calculate_">Calculate</string>
+	<string name="response_">Response</string>
+	
+	<string name="save_passphrase_">Remember passphrase</string>
+	<string name="save_passphrase_hint">check to store passphrase (insecure!)</string>
+	
+	<string name="save_sequence_">Remember sequence</string>
+	
 </resources>

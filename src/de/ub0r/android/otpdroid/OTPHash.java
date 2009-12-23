@@ -3,6 +3,11 @@ package de.ub0r.android.otpdroid;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+/**
+ * OTP Hash.
+ * 
+ * @author Daniel Tryba
+ */
 public class OTPHash implements BeerLicense {
 	public OTPHash() {
 	}

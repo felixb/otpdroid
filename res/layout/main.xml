@@ -1,72 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-android:id="@+id/widget28"
-android:layout_width="fill_parent"
-android:layout_height="fill_parent"
-xmlns:android="http://schemas.android.com/apk/res/android"
->
-<LinearLayout
-android:id="@+id/widget32"
-android:layout_width="fill_parent"
-android:layout_height="fill_parent"
-android:orientation="vertical"
-xmlns:android="http://schemas.android.com/apk/res/android"
->
-<TextView
-android:id="@+id/widget35"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:text="Passphrase"
->
-</TextView>
-<EditText
-android:id="@+id/passphrase"
-android:layout_width="fill_parent"
-android:layout_height="wrap_content"
-android:textSize="18sp"
-android:password="true"
-android:singleLine="true"
->
-</EditText>
-<TextView
-android:id="@+id/widget38"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:text="Challenge"
->
-</TextView>
-<EditText
-android:id="@+id/challenge"
-android:layout_width="fill_parent"
-android:layout_height="wrap_content"
-android:textSize="18sp"
-android:singleLine="true"
->
-</EditText>
-<Button
-android:id="@+id/calculate"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:padding="5px"
-android:layout_marginLeft="5px"
-android:layout_marginRight="5px"
-android:text="Calculate"
-android:layout_gravity="center_horizontal"
->
-</Button>
-<TextView
-android:id="@+id/widget44"
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:text="Response"
->
-</TextView>
-<EditText
-android:id="@+id/response"
-android:layout_width="fill_parent"
-android:layout_height="wrap_content"
-android:textSize="18sp"
->
-</EditText>
-</LinearLayout>
+<ScrollView android:layout_width="fill_parent"
+	android:layout_height="fill_parent" xmlns:android="http://schemas.android.com/apk/res/android">
+	<LinearLayout android:layout_width="fill_parent"
+		android:layout_height="fill_parent" android:orientation="vertical"
+		android:paddingLeft="5dip" android:paddingRight="5dip">
+		<TextView android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:text="@string/response_" />
+		<EditText android:id="@+id/passphrase" android:layout_width="fill_parent"
+			android:layout_height="wrap_content" android:password="true"
+			android:singleLine="true" android:hint="@string/passphrase_hint" />
+		<TextView android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:text="@string/challange_" />
+		<EditText android:id="@+id/challenge" android:layout_width="fill_parent"
+			android:layout_height="wrap_content" android:singleLine="true"
+			android:hint="@string/challange_hint" />
+		<Button android:id="@+id/calculate" android:layout_width="fill_parent"
+			android:layout_height="wrap_content" android:padding="5dip"
+			android:layout_marginLeft="5dip" android:layout_marginRight="5dip"
+			android:text="@string/calculate_" android:layout_gravity="center_horizontal" />
+		<TextView android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:text="Response" />
+		<EditText android:id="@+id/response" android:layout_width="fill_parent"
+			android:layout_height="wrap_content" />
+	</LinearLayout>
 </ScrollView>

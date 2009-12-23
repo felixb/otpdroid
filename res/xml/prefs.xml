@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<!--
+		Copyright (C) 2009 Felix Bechstein
+	-->
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+	<CheckBoxPreference android:key="saveSequence"
+		android:title="@string/save_sequence_" />
+	<CheckBoxPreference android:key="savePassphrase"
+		android:title="@string/save_passphrase_" android:summary="@string/save_passphrase_hint" />
+</PreferenceScreen>

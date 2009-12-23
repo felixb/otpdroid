@@ -1,31 +1,27 @@
 package de.ub0r.android.otpdroid;
 
-/*
+/**
  * Class for implementing OTP (aka s/key) one-time password calculation using
- * the accompanying md class for md4 and md5-based key calculation.
- * 
- * The constructor is used to set the challenge info and passphrase, and the
- * calc() method calculates the otp. The results can either be retrieved using
- * the tolong() method, which gives you the 64 bits "folded" hash in a single
- * word, or else as a String of otp "words" via toString().
- * 
- * Cripes this is slow. How can we make it faster?
- * 
- * Feel free to do whatever you like with this code. If you do modify or use
- * this code in another application, I'd be interested in hearing from you!
+ * the accompanying md class for md4 and md5-based key calculation. The
+ * constructor is used to set the challenge info and passphrase, and the calc()
+ * method calculates the Otp. The results can either be retrieved using the
+ * tolong() method, which gives you the 64 bits "folded" hash in a single word,
+ * or else as a String of Otp "words" via toString(). Cripes this is slow. How
+ * can we make it faster? Feel free to do whatever you like with this code. If
+ * you do modify or use this code in another application, I'd be interested in
+ * hearing from you!
  */
+class Otp {
+	private int seq;
+	private String seed, passphrase;
+	private byte hash[];
+	private int sha;
 
-class otp {
-	int seq;
-	String seed, passphrase;
-	byte hash[];
-	int sha;
+	static final byte MD4 = 4;
+	static final byte MD5 = 5;
+	static final byte SHA1 = 6;
 
-	final static byte MD4 = 4;
-	final static byte MD5 = 5;
-	final static byte SHA1 = 6;
-
-	otp(final int n, final String s, final String p, final int hashalg) {
+	Otp(final int n, final String s, final String p, final int hashalg) {
 		this.seq = n;
 		this.seed = s;
 		this.passphrase = p;
@@ -333,4 +329,4 @@ class otp {
 			"WOVE", "WRIT", "WYNN", "YALE", "YANG", "YANK", "YARD", "YARN",
 			"YAWL", "YAWN", "YEAH", "YEAR", "YELL", "YOGA", "YOKE" };
 
-} /* End of class otp */
+} /* End of class Otp */
