@@ -14,10 +14,10 @@ public class Preferences extends PreferenceActivity implements BeerLicense {
 				preference.getKey(), false);
 
 		SharedPreferences settings = this
-				.getSharedPreferences(Opiekey.PREFS, 0);
+				.getSharedPreferences(OTPdroid.PREFS, 0);
 		SharedPreferences.Editor editor = settings.edit();
 
-		editor.putBoolean(Opiekey.PREF_SAVE, savePassphrase);
+		editor.putBoolean(OTPdroid.PREF_SAVE, savePassphrase);
 		editor.commit();
 
 		return super.onPreferenceTreeClick(preferenceScreen, preference);

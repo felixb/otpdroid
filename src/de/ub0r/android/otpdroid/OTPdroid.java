@@ -16,7 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class Opiekey extends Activity implements BeerLicense {
+public class OTPdroid extends Activity implements BeerLicense {
 	public static final String VERSION = "1.0.0";
 	public static final String PREFS = "OpiekeyPreferences";
 	public static final String PREF_SAVE = "savePassphrase";
@@ -53,8 +53,8 @@ public class Opiekey extends Activity implements BeerLicense {
 		}
 
 		SharedPreferences settings = this
-				.getSharedPreferences(Opiekey.PREFS, 0);
-		savePassphrase = settings.getBoolean(Opiekey.PREF_SAVE, false);
+				.getSharedPreferences(OTPdroid.PREFS, 0);
+		savePassphrase = settings.getBoolean(OTPdroid.PREF_SAVE, false);
 
 		if (savePassphrase && this.passphrase.getText().toString().length() < 1) {
 			this.loadPassphrase(settings);
@@ -62,7 +62,7 @@ public class Opiekey extends Activity implements BeerLicense {
 
 		this.calc.setOnClickListener(new Button.OnClickListener() {
 			public void onClick(final View v) {
-				Opiekey.this.calc();
+				OTPdroid.this.calc();
 			}
 		});
 	}
@@ -98,7 +98,7 @@ public class Opiekey extends Activity implements BeerLicense {
 			Intent i = new Intent(Intent.ACTION_VIEW);
 			Uri u = Uri
 					.parse("http://android.f00d.nl/opiekey/index.php?version="
-							+ Opiekey.VERSION);
+							+ OTPdroid.VERSION);
 			i.setData(u);
 			this.startActivity(i);
 
@@ -181,15 +181,15 @@ public class Opiekey extends Activity implements BeerLicense {
 		boolean savePassphrase;
 
 		SharedPreferences settings = this
-				.getSharedPreferences(Opiekey.PREFS, 0);
+				.getSharedPreferences(OTPdroid.PREFS, 0);
 		Editor editor = settings.edit();
 
-		savePassphrase = settings.getBoolean(Opiekey.PREF_SAVE, false);
+		savePassphrase = settings.getBoolean(OTPdroid.PREF_SAVE, false);
 
 		if (savePassphrase) {
 			this.savePassphrase(editor);
 		} else {
-			editor.putString(Opiekey.PREF_SAVEDPASSPHRASE, "");
+			editor.putString(OTPdroid.PREF_SAVEDPASSPHRASE, "");
 		}
 
 		editor.commit();
@@ -202,7 +202,7 @@ public class Opiekey extends Activity implements BeerLicense {
 		aes.genKey((this.IMEI + this.SIMID).getBytes());
 		aes
 				.setInputBase64(settings.getString(
-						Opiekey.PREF_SAVEDPASSPHRASE, ""));
+						OTPdroid.PREF_SAVEDPASSPHRASE, ""));
 		l = aes.decrypt();
 
 		if (l > 0) {
@@ -220,7 +220,7 @@ public class Opiekey extends Activity implements BeerLicense {
 		l = aes.encrypt();
 
 		if (l > -1) {
-			editor.putString(Opiekey.PREF_SAVEDPASSPHRASE, aes
+			editor.putString(OTPdroid.PREF_SAVEDPASSPHRASE, aes
 					.getOutputBase64());
 		}
 	}
