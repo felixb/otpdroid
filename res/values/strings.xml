@@ -19,17 +19,17 @@
 	
 	<string name="passphrase_">Passphrase</string>
 	<string name="passphrase_hint">your passphrase</string>
-	<string name="challange_">Challange</string>
+	<string name="challenge_">Challenge</string>
 	<string name="method_promt">Hash method</string>
-	<string name="count_hint">99</string>
-	<string name="challange_hint">alpha1</string>
+	<string name="sequence_hint">99</string>
+	<string name="challenge_hint">alpha1</string>
 	<string name="calculate_">Calculate</string>
 	<string name="response_">Response</string>
 	
 	<string name="save_passphrase_">Remember passphrase</string>
 	<string name="save_passphrase_hint">check to store passphrase (insecure!)</string>
 	
-	<string name="save_sequence_">Remember challange</string>
+	<string name="save_sequence_">Remember challenge</string>
 	
 	<string name="error_input">Wrong input!</string>
 	

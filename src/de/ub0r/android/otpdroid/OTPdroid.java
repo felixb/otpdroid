@@ -40,15 +40,15 @@ public class OTPdroid extends Activity implements BeerLicense {
 	/** Pref: save passphrase. */
 	public static final String PREF_SAVEPASSPHRASE = "savePassphrase";
 	/** Pref: saved passphrase. */
-	public static final String PREF_SAVEDPASSPHRASE = "savedPassphrase";
-	/** Pref: save sequence. */
-	public static final String PREF_SAVESEQUENCE = "saveSequence";
-	/** Pref: saved hash sequence. */
-	public static final String PREF_SAVEDCHALANGE = "savedSequence";
-	/** Pref: saved hash count. */
-	public static final String PREF_SAVEDCOUNT = "savedCount";
+	public static final String PREF_SAVEDPASSPHRASE = "passphrase";
+	/** Pref: save challenge. */
+	public static final String PREF_SAVECHALLENGE = "saveChallenge";
+	/** Pref: saved challenge. */
+	public static final String PREF_SAVEDCHALENGE = "challenge";
+	/** Pref: saved sequence. */
+	public static final String PREF_SAVEDSEQUENCE = "sequence";
 	/** Pref: saved hash method. */
-	public static final String PREF_SAVEDHASHMETHOD = "savedHashMethod";
+	public static final String PREF_SAVEDHASHMETHOD = "hashMethod";
 	/** Preference's name: last version run */
 	private static final String PREFS_LAST_RUN = "lastrun";
 
@@ -64,8 +64,8 @@ public class OTPdroid extends Activity implements BeerLicense {
 	/** Spinner for hash method. */
 	private Spinner hashMethod;
 	/** EditText for count. */
-	private EditText count;
-	/** EditText for challange. */
+	private EditText sequence;
+	/** EditText for challenge. */
 	private EditText challenge;
 	/** EditText for response. */
 	private EditText response;
@@ -80,7 +80,7 @@ public class OTPdroid extends Activity implements BeerLicense {
 
 		this.passphrase = (EditText) this.findViewById(R.id.passphrase);
 		this.hashMethod = (Spinner) this.findViewById(R.id.hash_method);
-		this.count = (EditText) this.findViewById(R.id.count);
+		this.sequence = (EditText) this.findViewById(R.id.sequence);
 		this.challenge = (EditText) this.findViewById(R.id.challenge);
 		this.calc = (Button) this.findViewById(R.id.calculate);
 		this.response = (EditText) this.findViewById(R.id.response);
@@ -172,7 +172,8 @@ public class OTPdroid extends Activity implements BeerLicense {
 		}
 
 		try {
-			final int seq = Integer.parseInt(this.count.getText().toString());
+			final int seq = Integer
+					.parseInt(this.sequence.getText().toString());
 			final String seed = this.challenge.getText().toString();
 			final String pass = this.passphrase.getText().toString();
 
@@ -200,7 +201,7 @@ public class OTPdroid extends Activity implements BeerLicense {
 		final boolean savePassphrase = settings.getBoolean(
 				OTPdroid.PREF_SAVEPASSPHRASE, false);
 		final boolean saveSequence = settings.getBoolean(
-				OTPdroid.PREF_SAVESEQUENCE, false);
+				OTPdroid.PREF_SAVECHALLENGE, false);
 
 		this.savePassphrase(editor, savePassphrase, saveSequence);
 
@@ -224,7 +225,7 @@ public class OTPdroid extends Activity implements BeerLicense {
 		l = aes.decrypt();
 		if (l > 0) {
 			this.passphrase.setText(new String(aes.getOutput()));
-			this.count.requestFocus();
+			this.sequence.requestFocus();
 		}
 
 		aes = new AES();
@@ -239,16 +240,16 @@ public class OTPdroid extends Activity implements BeerLicense {
 
 		aes = new AES();
 		aes.genKey((this.imei + this.simid).getBytes());
-		aes.setInputBase64(settings.getString(OTPdroid.PREF_SAVEDCOUNT, ""));
+		aes.setInputBase64(settings.getString(OTPdroid.PREF_SAVEDSEQUENCE, ""));
 		l = aes.decrypt();
 		if (l > 0) {
-			this.count.setText(new String(aes.getOutput()));
+			this.sequence.setText(new String(aes.getOutput()));
 			this.challenge.requestFocus();
 		}
 
 		aes = new AES();
 		aes.genKey((this.imei + this.simid).getBytes());
-		aes.setInputBase64(settings.getString(OTPdroid.PREF_SAVEDCHALANGE, ""));
+		aes.setInputBase64(settings.getString(OTPdroid.PREF_SAVEDCHALENGE, ""));
 		l = aes.decrypt();
 		if (l > 0) {
 			this.challenge.setText(new String(aes.getOutput()));
@@ -270,8 +271,8 @@ public class OTPdroid extends Activity implements BeerLicense {
 		if (!savePassphrase && !saveChallange) {
 			editor.remove(PREF_SAVEDPASSPHRASE);
 			editor.remove(PREF_SAVEDHASHMETHOD);
-			editor.remove(PREF_SAVEDCOUNT);
-			editor.remove(PREF_SAVEDCHALANGE);
+			editor.remove(PREF_SAVEDSEQUENCE);
+			editor.remove(PREF_SAVEDCHALENGE);
 			return;
 		}
 		AES aes;
@@ -300,10 +301,10 @@ public class OTPdroid extends Activity implements BeerLicense {
 
 			aes = new AES();
 			aes.genKey((this.imei + this.simid).getBytes());
-			aes.setInput(this.count.getText().toString().getBytes());
+			aes.setInput(this.sequence.getText().toString().getBytes());
 			l = aes.encrypt();
 			if (l > -1) {
-				editor.putString(PREF_SAVEDCOUNT, aes.getOutputBase64());
+				editor.putString(PREF_SAVEDSEQUENCE, aes.getOutputBase64());
 			}
 
 			aes = new AES();
@@ -312,12 +313,12 @@ public class OTPdroid extends Activity implements BeerLicense {
 			l = aes.encrypt();
 
 			if (l > -1) {
-				editor.putString(PREF_SAVEDCHALANGE, aes.getOutputBase64());
+				editor.putString(PREF_SAVEDCHALENGE, aes.getOutputBase64());
 			}
 		} else {
 			editor.remove(PREF_SAVEDHASHMETHOD);
-			editor.remove(PREF_SAVEDCOUNT);
-			editor.remove(PREF_SAVEDCHALANGE);
+			editor.remove(PREF_SAVEDSEQUENCE);
+			editor.remove(PREF_SAVEDCHALENGE);
 		}
 	}
 

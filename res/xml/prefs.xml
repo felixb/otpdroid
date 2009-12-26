@@ -3,7 +3,7 @@
 		Copyright (C) 2009 Felix Bechstein
 	-->
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-	<CheckBoxPreference android:key="saveSequence"
+	<CheckBoxPreference android:key="saveChallenge"
 		android:title="@string/save_sequence_" />
 	<CheckBoxPreference android:key="savePassphrase"
 		android:title="@string/save_passphrase_" android:summary="@string/save_passphrase_hint" />
