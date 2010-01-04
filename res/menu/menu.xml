@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 	<!--
-		Copyright (C) 2009 Felix Bechstein
+		Copyright (C) 2010 Felix Bechstein
 	-->
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 	<item android:title="@string/settings" android:id="@+id/item_settings"
