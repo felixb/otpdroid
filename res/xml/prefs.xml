@@ -7,4 +7,10 @@
 		android:title="@string/save_sequence_" />
 	<CheckBoxPreference android:key="savePassphrase"
 		android:title="@string/save_passphrase_" android:summary="@string/save_passphrase_hint" />
+	<!--
+	<CheckBoxPreference android:key="encryptByBoottime" android:dependency="savePassphrase"
+		android:title="@string/encrypt_by_boottime_" android:summary="@string/encrypt_by_boottime_hint" />
+	-->
+	<CheckBoxPreference android:key="autoDecrement"
+		android:title="@string/autodecrement_" android:summary="@string/autodecrement_hint" />
 </PreferenceScreen>

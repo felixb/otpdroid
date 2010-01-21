@@ -39,6 +39,8 @@ public class OTPdroid extends Activity implements BeerLicense {
 
 	/** Pref: save passphrase. */
 	public static final String PREF_SAVEPASSPHRASE = "savePassphrase";
+	/** Pref: encrypt passphrase with boottime. */
+	public static final String PREF_ENCRYPTPASSPHRASEBYBOOTTIME = "encryptByBoottime";
 	/** Pref: saved passphrase. */
 	public static final String PREF_SAVEDPASSPHRASE = "passphrase";
 	/** Pref: save challenge. */
@@ -49,6 +51,8 @@ public class OTPdroid extends Activity implements BeerLicense {
 	public static final String PREF_SAVEDSEQUENCE = "sequence";
 	/** Pref: saved hash method. */
 	public static final String PREF_SAVEDHASHMETHOD = "hashMethod";
+	/** Pref: auto decrement sequence. */
+	public static final String PREF_AUTODECREMENT = "autoDecrement";
 	/** Preference's name: last version run */
 	private static final String PREFS_LAST_RUN = "lastrun";
 
@@ -113,6 +117,24 @@ public class OTPdroid extends Activity implements BeerLicense {
 				OTPdroid.this.calc();
 			}
 		});
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	protected final void onResume() {
+		super.onResume();
+		this.response.setText("");
+		final SharedPreferences p = PreferenceManager
+			.getDefaultSharedPreferences(this);
+		if (p.getBoolean(PREF_AUTODECREMENT, false)) {
+			final String s = this.sequence.getText().toString();
+			if (s.length() > 0) {
+				final int i = Integer.parseInt(s);
+				OTPdroid.this.sequence.setText("" + (i - 1));
+			}
+		}
 	}
 
 	/**

@@ -28,8 +28,11 @@
 	
 	<string name="save_passphrase_">Remember passphrase</string>
 	<string name="save_passphrase_hint">check to store passphrase (insecure!)</string>
-	
+	<string name="encrypt_by_boottime_">Encrypt with boottime</string>
+	<string name="encrypt_by_boottime_hint">Encrypt passphrase with boottime. This makes saved passphrase unrestorable after reboot.</string>
 	<string name="save_sequence_">Remember challenge</string>
+	<string name="autodecrement_">Auto decrement sequence</string>
+	<string name="autodecrement_hint">Auto decrement sequence on resume.</string>
 	
 	<string name="error_input">Wrong input!</string>
 	
