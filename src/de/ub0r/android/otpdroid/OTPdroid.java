@@ -74,6 +74,9 @@ public class OTPdroid extends Activity implements BeerLicense {
 	/** EditText for response. */
 	private EditText response;
 
+	/** Did user pressed the calc button? */
+	private static boolean didCalc;
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -92,8 +95,8 @@ public class OTPdroid extends Activity implements BeerLicense {
 		final ArrayAdapter<CharSequence> adapter = ArrayAdapter
 				.createFromResource(this, R.array.hash_methods,
 						android.R.layout.simple_spinner_item);
-		adapter
-				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		adapter.setDropDownViewResource(// .
+				android.R.layout.simple_spinner_dropdown_item);
 		this.hashMethod.setAdapter(adapter);
 
 		if (this.imei == null || this.simid == null) {
@@ -115,8 +118,11 @@ public class OTPdroid extends Activity implements BeerLicense {
 		this.calc.setOnClickListener(new Button.OnClickListener() {
 			public void onClick(final View v) {
 				OTPdroid.this.calc();
+				OTPdroid.didCalc = true;
 			}
 		});
+		didCalc = false;
+		this.decrementSequence();
 	}
 
 	/**
@@ -125,9 +131,18 @@ public class OTPdroid extends Activity implements BeerLicense {
 	@Override
 	protected final void onResume() {
 		super.onResume();
+		if (OTPdroid.didCalc) {
+			this.decrementSequence();
+		}
+	}
+
+	/**
+	 * Decrement sequence.
+	 */
+	private void decrementSequence() {
 		this.response.setText("");
 		final SharedPreferences p = PreferenceManager
-			.getDefaultSharedPreferences(this);
+				.getDefaultSharedPreferences(this);
 		if (p.getBoolean(PREF_AUTODECREMENT, false)) {
 			final String s = this.sequence.getText().toString();
 			if (s.length() > 0) {
@@ -135,6 +150,7 @@ public class OTPdroid extends Activity implements BeerLicense {
 				OTPdroid.this.sequence.setText("" + (i - 1));
 			}
 		}
+		OTPdroid.didCalc = false;
 	}
 
 	/**
