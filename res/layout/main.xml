@@ -15,9 +15,13 @@
 			android:layout_height="wrap_content" android:orientation="horizontal">
 			<Spinner android:id="@+id/hash_method" android:layout_height="wrap_content"
 				android:layout_width="wrap_content" android:prompt="@string/method_promt" />
+			<Button android:id="@+id/prev" android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:text="&lt;" />
 			<EditText android:id="@+id/sequence" android:layout_width="wrap_content"
 				android:layout_height="wrap_content" android:singleLine="true"
 				android:hint="@string/sequence_hint" android:inputType="number" />
+			<Button android:id="@+id/next" android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:text="&gt;" />
 			<EditText android:id="@+id/challenge" android:layout_width="fill_parent"
 				android:layout_height="wrap_content" android:singleLine="true"
 				android:hint="@string/challenge_hint" />

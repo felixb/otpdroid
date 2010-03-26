@@ -18,6 +18,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,7 +29,7 @@ import android.widget.Spinner;
  * 
  * @author flx
  */
-public class OTPdroid extends Activity implements BeerLicense {
+public class OTPdroid extends Activity implements BeerLicense, OnClickListener {
 	/** Tag for output. */
 	private static final String TAG = "OTPdroid";
 
@@ -115,14 +116,45 @@ public class OTPdroid extends Activity implements BeerLicense {
 		}
 		this.loadPassphrase(settings);
 
-		this.calc.setOnClickListener(new Button.OnClickListener() {
-			public void onClick(final View v) {
-				OTPdroid.this.calc();
-				OTPdroid.didCalc = true;
-			}
-		});
+		this.findViewById(R.id.prev).setOnClickListener(this);
+		this.findViewById(R.id.next).setOnClickListener(this);
+		this.calc.setOnClickListener(this);
 		didCalc = false;
 		this.decrementSequence();
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public final void onClick(final View v) {
+		switch (v.getId()) {
+		case R.id.calculate:
+			OTPdroid.this.calc();
+			OTPdroid.didCalc = true;
+			break;
+		case R.id.prev:
+			this.response.setText("");
+			try {
+				final int seq = Integer.parseInt(this.sequence.getText()
+						.toString());
+				this.sequence.setText(String.valueOf(seq - 1));
+			} catch (Exception e) {
+				this.response.setText(R.string.error_input);
+			}
+			break;
+		case R.id.next:
+			this.response.setText("");
+			try {
+				final int seq = Integer.parseInt(this.sequence.getText()
+						.toString());
+				this.sequence.setText(String.valueOf(seq + 1));
+			} catch (Exception e) {
+				this.response.setText(R.string.error_input);
+			}
+			break;
+		default:
+			break;
+		}
 	}
 
 	/**
@@ -222,7 +254,6 @@ public class OTPdroid extends Activity implements BeerLicense {
 		} catch (Exception e) {
 			this.response.setText(R.string.error_input);
 		}
-
 	}
 
 	/**
