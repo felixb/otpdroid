@@ -13,4 +13,7 @@
 	-->
 	<CheckBoxPreference android:key="autoDecrement"
 		android:title="@string/autodecrement_" android:summary="@string/autodecrement_hint" />
+	<EditTextPreference android:key="numberOfResponses"
+		android:title="@string/number_of_responses_" android:summary="@string/number_of_responses_hint" android:defaultValue="1"
+		android:singleLine="true" android:inputType="number" />
 </PreferenceScreen>

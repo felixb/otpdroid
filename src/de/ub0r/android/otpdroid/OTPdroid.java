@@ -54,6 +54,8 @@ public class OTPdroid extends Activity implements BeerLicense, OnClickListener {
 	public static final String PREF_SAVEDHASHMETHOD = "hashMethod";
 	/** Pref: auto decrement sequence. */
 	public static final String PREF_AUTODECREMENT = "autoDecrement";
+	/** Pref: number of responses to print. */
+	public static final String PREF_NUMBEROFRESPONSES = "numberOfResponses";
 	/** Preference's name: last version run */
 	private static final String PREFS_LAST_RUN = "lastrun";
 
@@ -97,7 +99,7 @@ public class OTPdroid extends Activity implements BeerLicense, OnClickListener {
 				.createFromResource(this, R.array.hash_methods,
 						android.R.layout.simple_spinner_item);
 		adapter.setDropDownViewResource(// .
-				android.R.layout.simple_spinner_dropdown_item);
+		android.R.layout.simple_spinner_dropdown_item);
 		this.hashMethod.setAdapter(adapter);
 
 		if (this.imei == null || this.simid == null) {
@@ -224,6 +226,13 @@ public class OTPdroid extends Activity implements BeerLicense, OnClickListener {
 	 * Calculate the response.
 	 */
 	private void calc() {
+		final SharedPreferences p = PreferenceManager
+				.getDefaultSharedPreferences(this);
+		final int numberOfResponses = Integer.parseInt(p.getString(
+				PREF_NUMBEROFRESPONSES, "1"));
+		final String eol = System.getProperty("line.separator");
+		String finalResponse = "";
+
 		byte algo = 0x00;
 
 		switch ((int) this.hashMethod.getSelectedItemId()) {
@@ -240,17 +249,27 @@ public class OTPdroid extends Activity implements BeerLicense, OnClickListener {
 			algo = Otp.SHA1;
 			break;
 		}
-
 		try {
-			final int seq = Integer
-					.parseInt(this.sequence.getText().toString());
-			final String seed = this.challenge.getText().toString();
-			final String pass = this.passphrase.getText().toString();
+			final long startTime = System.currentTimeMillis();
+			int seq = Integer.parseInt(this.sequence.getText().toString());
+			for (int i = 0; i < numberOfResponses && seq >= 0; i++) {
+				final String seed = this.challenge.getText().toString();
+				final String pass = this.passphrase.getText().toString();
 
-			final Otp otpwd = new Otp(seq, seed, pass, algo);
-			otpwd.calc();
+				final Otp otpwd = new Otp(seq, seed, pass, algo);
+				otpwd.calc();
 
-			this.response.setText(otpwd.toString());
+				if (numberOfResponses == 1) {
+					finalResponse += otpwd.toString() + eol;
+				} else {
+					finalResponse += seq + ": " + otpwd.toString() + eol;
+					seq--;
+				}
+			}
+			finalResponse += this.getString(R.string.generated_in) + " "
+					+ (System.currentTimeMillis() - startTime) / 1000F + " "
+					+ this.getString(R.string.seconds);
+			this.response.setText(finalResponse);
 		} catch (Exception e) {
 			this.response.setText(R.string.error_input);
 		}
