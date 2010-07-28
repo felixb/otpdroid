@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.telephony.TelephonyManager;
@@ -41,7 +42,8 @@ public class OTPdroid extends Activity implements BeerLicense, OnClickListener {
 	/** Pref: save passphrase. */
 	public static final String PREF_SAVEPASSPHRASE = "savePassphrase";
 	/** Pref: encrypt passphrase with boottime. */
-	public static final String PREF_ENCRYPTPASSPHRASEBYBOOTTIME = "encryptByBoottime";
+	public static final String PREF_ENCRYPTPASSPHRASEBYBOOTTIME = // .
+	"encryptByBoottime";
 	/** Pref: saved passphrase. */
 	public static final String PREF_SAVEDPASSPHRASE = "passphrase";
 	/** Pref: save challenge. */
@@ -56,7 +58,7 @@ public class OTPdroid extends Activity implements BeerLicense, OnClickListener {
 	public static final String PREF_AUTODECREMENT = "autoDecrement";
 	/** Pref: number of responses to print. */
 	public static final String PREF_NUMBEROFRESPONSES = "numberOfResponses";
-	/** Preference's name: last version run */
+	/** Preference's name: last version run. */
 	private static final String PREFS_LAST_RUN = "lastrun";
 
 	/** Phone's imei. */
@@ -99,7 +101,7 @@ public class OTPdroid extends Activity implements BeerLicense, OnClickListener {
 				.createFromResource(this, R.array.hash_methods,
 						android.R.layout.simple_spinner_item);
 		adapter.setDropDownViewResource(// .
-		android.R.layout.simple_spinner_dropdown_item);
+				android.R.layout.simple_spinner_dropdown_item);
 		this.hashMethod.setAdapter(adapter);
 
 		if (this.imei == null || this.simid == null) {
@@ -231,7 +233,6 @@ public class OTPdroid extends Activity implements BeerLicense, OnClickListener {
 		final int numberOfResponses = Integer.parseInt(p.getString(
 				PREF_NUMBEROFRESPONSES, "1"));
 		final String eol = System.getProperty("line.separator");
-		String finalResponse = "";
 
 		byte algo = 0x00;
 
@@ -249,30 +250,62 @@ public class OTPdroid extends Activity implements BeerLicense, OnClickListener {
 			algo = Otp.SHA1;
 			break;
 		}
-		try {
-			final long startTime = System.currentTimeMillis();
-			int seq = Integer.parseInt(this.sequence.getText().toString());
-			for (int i = 0; i < numberOfResponses && seq >= 0; i++) {
-				final String seed = this.challenge.getText().toString();
-				final String pass = this.passphrase.getText().toString();
+		final byte falgo = algo;
+		new AsyncTask<Void, Void, String>() {
+			@Override
+			protected String doInBackground(final Void... arg0) {
+				try {
+					final long startTime = System.currentTimeMillis();
+					int seq = Integer.parseInt(OTPdroid.this.sequence.getText()
+							.toString());
+					String finalResponse = "";
+					for (int i = 0; i < numberOfResponses && seq >= 0; i++) {
+						final String seed = OTPdroid.this.challenge.getText()
+								.toString();
+						final String pass = OTPdroid.this.passphrase.getText()
+								.toString();
 
-				final Otp otpwd = new Otp(seq, seed, pass, algo);
-				otpwd.calc();
+						final Otp otpwd = new Otp(seq, seed, pass, falgo);
+						otpwd.calc();
 
-				if (numberOfResponses == 1) {
-					finalResponse += otpwd.toString() + eol;
-				} else {
-					finalResponse += seq + ": " + otpwd.toString() + eol;
-					seq--;
+						if (numberOfResponses == 1) {
+							finalResponse += otpwd.toString() + eol;
+						} else {
+							finalResponse += seq + ": " + otpwd.toString()
+									+ eol;
+							seq--;
+						}
+					}
+					finalResponse += OTPdroid.this
+							.getString(R.string.generated_in)
+							+ " "
+							+ (System.currentTimeMillis() - startTime)
+							/ 1000F
+							+ " "
+							+ OTPdroid.this.getString(R.string.seconds);
+					return finalResponse;
+				} catch (Exception e) {
+					return null;
 				}
 			}
-			finalResponse += this.getString(R.string.generated_in) + " "
-					+ (System.currentTimeMillis() - startTime) / 1000F + " "
-					+ this.getString(R.string.seconds);
-			this.response.setText(finalResponse);
-		} catch (Exception e) {
-			this.response.setText(R.string.error_input);
-		}
+
+			@Override
+			protected void onPreExecute() {
+				OTPdroid.this.calc.setEnabled(false);
+			}
+
+			@Override
+			protected void onPostExecute(final String result) {
+				if (result == null) {
+					OTPdroid.this.response.setText(R.string.error_input);
+				} else {
+					OTPdroid.this.response.setText(result);
+				}
+				OTPdroid.this.calc.setEnabled(true);
+			}
+
+		} // .
+				.execute((Void) null);
 	}
 
 	/**
