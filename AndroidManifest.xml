@@ -4,7 +4,7 @@
 	-->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 	android:versionCode="151" android:versionName="1.6"
-	package="de.ub0r.android.otpdroid">
+	package="de.ub0r.android.otpdroid" android:installLocation="auto">
 	<application android:icon="@drawable/icon" android:label="@string/app_name"
 		android:configChanges="orientation|keyboard|keyboardHidden|fontScale"
 		android:windowSoftInputMode="adjustResize" android:debuggable="true">
@@ -17,8 +17,6 @@
 		<activity android:name=".Preferences" android:label="@string/app_name" />
 	</application>
 	<uses-sdk android:minSdkVersion="3" android:targetSdkVersion="4" />
-	<supports-screens android:largeScreens="true"
-		android:normalScreens="true" android:smallScreens="true"
-		android:anyDensity="true" />
+	<supports-screens android:anyDensity="true" />
 	<uses-permission android:name="android.permission.READ_PHONE_STATE" />
 </manifest> 
