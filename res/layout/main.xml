@@ -5,33 +5,40 @@
 		android:layout_height="fill_parent" android:orientation="vertical"
 		android:paddingLeft="5dip" android:paddingRight="5dip">
 		<TextView android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:text="@string/response_" />
+			android:layout_height="wrap_content" android:text="@string/passphrase_"
+			android:textStyle="bold" />
 		<EditText android:id="@+id/passphrase" android:layout_width="fill_parent"
 			android:layout_height="wrap_content" android:password="true"
 			android:singleLine="true" android:hint="@string/passphrase_hint" />
 		<TextView android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:text="@string/challenge_" />
+			android:layout_height="wrap_content" android:text="@string/challenge_"
+			android:textStyle="bold" />
 		<LinearLayout android:layout_width="fill_parent"
 			android:layout_height="wrap_content" android:orientation="horizontal">
-			<Spinner android:id="@+id/hash_method" android:layout_height="wrap_content"
+			<Spinner android:id="@+id/hash_method" android:layout_height="fill_parent"
 				android:layout_width="wrap_content" android:prompt="@string/method_promt" />
-			<Button android:id="@+id/prev" android:layout_width="wrap_content"
-				android:layout_height="wrap_content" android:text="&lt;" />
 			<EditText android:id="@+id/sequence" android:layout_width="wrap_content"
-				android:layout_height="wrap_content" android:singleLine="true"
+				android:layout_height="fill_parent" android:singleLine="true"
 				android:hint="@string/sequence_hint" android:inputType="number" />
-			<Button android:id="@+id/next" android:layout_width="wrap_content"
-				android:layout_height="wrap_content" android:text="&gt;" />
 			<EditText android:id="@+id/challenge" android:layout_width="fill_parent"
-				android:layout_height="wrap_content" android:singleLine="true"
-				android:hint="@string/challenge_hint" />
+				android:layout_height="fill_parent" android:singleLine="true"
+				android:hint="@string/challenge_hint" android:layout_weight="1" />
 		</LinearLayout>
-		<Button android:id="@+id/calculate" android:layout_width="fill_parent"
-			android:layout_height="wrap_content" android:padding="5dip"
-			android:layout_marginLeft="5dip" android:layout_marginRight="5dip"
-			android:text="@string/calculate_" android:layout_gravity="center_horizontal" />
+		<LinearLayout android:layout_width="fill_parent"
+			android:layout_height="wrap_content" android:orientation="horizontal">
+			<Button android:id="@+id/prev" android:layout_width="wrap_content"
+				android:layout_height="fill_parent" android:text="&lt;&lt;"
+				android:textStyle="bold" />
+			<Button android:id="@+id/next" android:layout_width="wrap_content"
+				android:layout_height="fill_parent" android:text="&gt;&gt;"
+				android:textStyle="bold" />
+			<Button android:id="@+id/calculate" android:layout_width="fill_parent"
+				android:layout_height="fill_parent" android:layout_marginLeft="10dip"
+				android:text="@string/calculate_" android:textStyle="bold" />
+		</LinearLayout>
 		<TextView android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:text="Response" />
+			android:layout_height="wrap_content" android:text="Response"
+			android:textStyle="bold" />
 		<EditText android:id="@+id/response" android:layout_width="fill_parent"
 			android:layout_height="wrap_content" />
 	</LinearLayout>
