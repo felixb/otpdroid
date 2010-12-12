@@ -8,9 +8,9 @@
 	<string name="author">Felix Bechstein &lt;f@ub0r.de&gt;\nSerguey Parkhomovsky &lt;www.squirrelium.com&gt;</string>
 	<string name="license">BeerLicense 1.03 - see http://en.wikipedia.org/wiki/Beerware</string>
 	<string name="source_">Sourcescode:</string>
-	<string name="source">http://code.google.com/p/ub0rapps/</string>
+	<string name="source">http://github.com/felixb/otpdroid</string>
 	<string name="website_">Website:</string>
-	<string name="website">none yet</string>
+	<string name="website">http://code.google.com/p/ub0rapps/</string>
 	<string name="about_">About OTPdroid</string>
 	<string name="about">OTPdroid generates OTP passwords. Supporting MD5 and SHA1 hash methods. This is a fork of Opiekey http://android.f00d.nl/opiekey/ written by Daniel Tryba. He took some code from Harry Mantakos\'s jotp http://www.cs.umd.edu/~harry/jotp/</string>
 	<string name="changelog_">Changelog</string>
