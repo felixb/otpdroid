@@ -8,12 +8,20 @@
 	<CheckBoxPreference android:key="savePassphrase"
 		android:title="@string/save_passphrase_" android:summary="@string/save_passphrase_hint" />
 	<!--
-	<CheckBoxPreference android:key="encryptByBoottime" android:dependency="savePassphrase"
-		android:title="@string/encrypt_by_boottime_" android:summary="@string/encrypt_by_boottime_hint" />
+		<CheckBoxPreference android:key="encryptByBoottime"
+		android:dependency="savePassphrase"
+		android:title="@string/encrypt_by_boottime_"
+		android:summary="@string/encrypt_by_boottime_hint" />
 	-->
 	<CheckBoxPreference android:key="autoDecrement"
 		android:title="@string/autodecrement_" android:summary="@string/autodecrement_hint" />
 	<EditTextPreference android:key="numberOfResponses"
-		android:title="@string/number_of_responses_" android:summary="@string/number_of_responses_hint" android:defaultValue="1"
-		android:singleLine="true" android:inputType="number" />
+		android:title="@string/number_of_responses_" android:summary="@string/number_of_responses_hint"
+		android:defaultValue="1" android:singleLine="true" android:inputType="number" />
+	<CheckBoxPreference android:key="showTime"
+		android:title="@string/show_time_" android:summary="@string/show_time_hint"
+		android:defaultValue="true" />
+	<CheckBoxPreference android:key="copyResponse"
+		android:title="@string/copy_response_" android:summary="@string/copy_response_hint"
+		android:defaultValue="true" />
 </PreferenceScreen>

@@ -35,6 +35,10 @@
 	<string name="autodecrement_hint">Auto decrement sequence on resume.</string>
 	<string name="number_of_responses_">Number of responses</string>
 	<string name="number_of_responses_hint">Number of responses to print.</string>
+	<string name="show_time_">Show time</string>
+	<string name="show_time_hint">Show time needed to generate output.</string>
+	<string name="copy_response_">Copy response</string>
+	<string name="copy_response_hint">Copy (first) response to clipboard.</string>
 	
 	<string name="error_input">Wrong input!</string>
 	

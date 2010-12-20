@@ -4,6 +4,7 @@
 	-->
 <resources>
 	<string-array name="updates">
+		<item>HEAD: copy response to clipboard, switch off time</item>
 		<item>v1.7.1: fix links/icons</item>
 		<item>v1.7: fix layout</item>
 		<item>v1.6: generate any number of hashes (thanks to serguey), do generation in background thread</item>

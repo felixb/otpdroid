@@ -14,6 +14,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.telephony.TelephonyManager;
+import android.text.ClipboardManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -58,6 +59,10 @@ public class OTPdroid extends Activity implements BeerLicense, OnClickListener {
 	public static final String PREF_AUTODECREMENT = "autoDecrement";
 	/** Pref: number of responses to print. */
 	public static final String PREF_NUMBEROFRESPONSES = "numberOfResponses";
+	/** Pref: show time. */
+	public static final String PREF_SHOWTIME = "showTime";
+	/** Pref: copy response. */
+	public static final String PREF_COPYRESPONSE = "copyResponse";
 	/** Preference's name: last version run. */
 	private static final String PREFS_LAST_RUN = "lastrun";
 
@@ -232,7 +237,11 @@ public class OTPdroid extends Activity implements BeerLicense, OnClickListener {
 				.getDefaultSharedPreferences(this);
 		final int numberOfResponses = Integer.parseInt(p.getString(
 				PREF_NUMBEROFRESPONSES, "1"));
+		final boolean showTime = p.getBoolean(PREF_SHOWTIME, true);
+		final boolean copyResponse = p.getBoolean(PREF_COPYRESPONSE, true);
 		final String eol = System.getProperty("line.separator");
+		final ClipboardManager cbmgr = (ClipboardManager) this
+				.getSystemService(CLIPBOARD_SERVICE);
 
 		byte algo = 0x00;
 
@@ -267,6 +276,9 @@ public class OTPdroid extends Activity implements BeerLicense, OnClickListener {
 
 						final Otp otpwd = new Otp(seq, seed, pass, falgo);
 						otpwd.calc();
+						if (copyResponse && i == 0) {
+							cbmgr.setText(otpwd.toString());
+						}
 
 						if (numberOfResponses == 1) {
 							finalResponse += otpwd.toString() + eol;
@@ -276,13 +288,15 @@ public class OTPdroid extends Activity implements BeerLicense, OnClickListener {
 							seq--;
 						}
 					}
-					finalResponse += OTPdroid.this
-							.getString(R.string.generated_in)
-							+ " "
-							+ (System.currentTimeMillis() - startTime)
-							/ 1000F
-							+ " "
-							+ OTPdroid.this.getString(R.string.seconds);
+					if (showTime) {
+						finalResponse += OTPdroid.this
+								.getString(R.string.generated_in)
+								+ " "
+								+ (System.currentTimeMillis() - startTime)
+								/ 1000F
+								+ " "
+								+ OTPdroid.this.getString(R.string.seconds);
+					}
 					return finalResponse;
 				} catch (Exception e) {
 					return null;
