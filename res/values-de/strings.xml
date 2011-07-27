@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="license">BeerLicense 1.03 - siehe http://en.wikipedia.org/wiki/Beerware</string>
+	<string name="source_">Sourcescode:</string>
+	<string name="source">http://github.com/felixb/otpdroid</string>
+	<string name="website_">Website:</string>
+	<string name="website">http://code.google.com/p/ub0rapps/</string>
+	<string name="about_">Über OTPdroid</string>
+	<string name="about">OTPdroid generiert OTP Passwörter. Es wird MD5 und SHA1 als Hashalgorythmus unterstützt. Diese App ist ein Fork von Opiekey http://android.f00d.nl/opiekey/ von Daniel Tryba. Daniel hat wiederum von Harry Mantakoss jotp http://www.cs.umd.edu/~harry/jotp/ code benutzt.</string>
+	<string name="more_">Mehr Apps..</string>
+	<string name="settings">Einstellungen</string>
+	<string name="passphrase_">Passphrase</string>
+	<string name="passphrase_hint">Deine Passphrase</string>
+	<string name="challenge_">Challenge</string>
+	<string name="method_promt">Hash Methode</string>
+	<string name="sequence_hint">99</string>
+	<string name="challenge_hint">alpha1</string>
+	<string name="calculate_">Berechne</string>
+	<string name="response_">Antwort</string>
+	<string name="save_passphrase_">Passphrase merken</string>
+	<string name="save_passphrase_hint">Aktivieren, um die Passphrase zu speichern (unsicher!)</string>
+	<string name="encrypt_by_boottime_">Mit Bootzeitpunkt verschlüsseln</string>
+	<string name="encrypt_by_boottime_hint">Die Passphrase wird mit dem Zeitpunkt des Startens des Geräts verschlüsselt. Damit ist sie nur bis zum nächsten Reboot wiederherstellbar.</string>
+	<string name="save_sequence_">Challenge merken</string>
+	<string name="autodecrement_">Sequence automatisch absenken</string>
+	<string name="autodecrement_hint">Beim wiederherstellen automatisch 1 von der sequence abziehen.</string>
+	<string name="number_of_responses_">Anzahl der Antworten</string>
+	<string name="number_of_responses_hint">Anzahl der Antworten, die berechnet werden.</string>
+	<string name="show_time_">Zeige Zeit</string>
+	<string name="show_time_hint">Zeige Zeit, die die Berechnung gedauert hat.</string>
+	<string name="copy_response_">Antwort kopieren</string>
+	<string name="copy_response_hint">Kopiere (die erste) Antwort in die Zwischenanblage.</string>
+	<string name="error_input">Falsche Eingabe!</string>
+	<string name="generated_in">Generiert in </string>
+	<string name="seconds">Sekunden.</string>
+	<string name="please_wait_">Bitte warten..</string>
+</resources>
