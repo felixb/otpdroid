@@ -3,7 +3,13 @@
 		Copyright (C) 2010 Felix Bechstein
 	-->
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-	<item android:title="@string/settings" android:id="@+id/item_settings"
+	<item android:id="@+id/item_prev" android:icon="@drawable/ic_menu_back"
+		android:showAsAction="always" />
+	<item android:id="@+id/item_next" android:icon="@drawable/ic_menu_forward"
+		android:showAsAction="always" />
+	<item android:id="@+id/item_calculate" android:title="@string/calculate_"
+		android:icon="@drawable/ic_menu_login" android:showAsAction="always|withText" />
+	<item android:id="@+id/item_settings" android:title="@string/settings"
 		android:icon="@android:drawable/ic_menu_preferences" />
 	<item android:id="@+id/item_about" android:icon="@android:drawable/ic_menu_info_details"
 		android:title="@string/about_" />

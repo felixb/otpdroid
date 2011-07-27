@@ -1,8 +1,8 @@
 package de.ub0r.android.otpdroid;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,25 +11,23 @@ import android.content.SharedPreferences.Editor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.Menu;
+import android.support.v4.view.MenuItem;
 import android.telephony.TelephonyManager;
 import android.text.ClipboardManager;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import de.ub0r.android.lib.Market;
 
 /**
- * OTPdroid's main activity.
+ * OTPdroid's main {@link FragmentActivity}.
  * 
  * @author flx
  */
-public class OTPdroid extends Activity implements BeerLicense, OnClickListener {
+public class OTPdroid extends FragmentActivity implements BeerLicense {
 	/** Tag for output. */
 	private static final String TAG = "OTPdroid";
 
@@ -40,7 +38,7 @@ public class OTPdroid extends Activity implements BeerLicense, OnClickListener {
 
 	/** Pref: save passphrase. */
 	public static final String PREF_SAVEPASSPHRASE = "savePassphrase";
-	/** Pref: encrypt passphrase with boottime. */
+	/** Pref: encrypt passphrase with boot time. */
 	public static final String PREF_ENCRYPTPASSPHRASEBYBOOTTIME = // .
 	"encryptByBoottime";
 	/** Pref: saved passphrase. */
@@ -69,8 +67,6 @@ public class OTPdroid extends Activity implements BeerLicense, OnClickListener {
 	/** Phone's simid. */
 	private String simid = null;
 
-	/** Button for calc Otp. */
-	private Button calc;
 	/** EditText for passphrase. */
 	private EditText passphrase;
 	/** Spinner for hash method. */
@@ -81,6 +77,9 @@ public class OTPdroid extends Activity implements BeerLicense, OnClickListener {
 	private EditText challenge;
 	/** EditText for response. */
 	private EditText response;
+
+	/** {@link MenuItem} showing calculation button. */
+	private MenuItem miCalc = null;
 
 	/** Did user pressed the calc button? */
 	private static boolean didCalc;
@@ -97,7 +96,6 @@ public class OTPdroid extends Activity implements BeerLicense, OnClickListener {
 		this.hashMethod = (Spinner) this.findViewById(R.id.hash_method);
 		this.sequence = (EditText) this.findViewById(R.id.sequence);
 		this.challenge = (EditText) this.findViewById(R.id.challenge);
-		this.calc = (Button) this.findViewById(R.id.calculate);
 		this.response = (EditText) this.findViewById(R.id.response);
 
 		final ArrayAdapter<CharSequence> adapter = ArrayAdapter
@@ -123,44 +121,35 @@ public class OTPdroid extends Activity implements BeerLicense, OnClickListener {
 		}
 		this.loadPassphrase(settings);
 
-		this.findViewById(R.id.prev).setOnClickListener(this);
-		this.findViewById(R.id.next).setOnClickListener(this);
-		this.calc.setOnClickListener(this);
 		didCalc = false;
 		this.decrementSequence();
 	}
 
 	/**
-	 * {@inheritDoc}
+	 * Switch to previous sequence.
 	 */
-	public final void onClick(final View v) {
-		switch (v.getId()) {
-		case R.id.calculate:
-			OTPdroid.this.calc();
-			OTPdroid.didCalc = true;
-			break;
-		case R.id.prev:
-			this.response.setText("");
-			try {
-				final int seq = Integer.parseInt(this.sequence.getText()
-						.toString());
-				this.sequence.setText(String.valueOf(seq - 1));
-			} catch (Exception e) {
-				this.response.setText(R.string.error_input);
-			}
-			break;
-		case R.id.next:
-			this.response.setText("");
-			try {
-				final int seq = Integer.parseInt(this.sequence.getText()
-						.toString());
-				this.sequence.setText(String.valueOf(seq + 1));
-			} catch (Exception e) {
-				this.response.setText(R.string.error_input);
-			}
-			break;
-		default:
-			break;
+	private void prev() {
+		this.response.setText("");
+		try {
+			final int seq = Integer
+					.parseInt(this.sequence.getText().toString());
+			this.sequence.setText(String.valueOf(seq - 1));
+		} catch (Exception e) {
+			this.response.setText(R.string.error_input);
+		}
+	}
+
+	/**
+	 * Switch to next sequence.
+	 */
+	private void next() {
+		this.response.setText("");
+		try {
+			final int seq = Integer
+					.parseInt(this.sequence.getText().toString());
+			this.sequence.setText(String.valueOf(seq + 1));
+		} catch (Exception e) {
+			this.response.setText(R.string.error_input);
 		}
 	}
 
@@ -197,8 +186,8 @@ public class OTPdroid extends Activity implements BeerLicense, OnClickListener {
 	 */
 	@Override
 	public final boolean onCreateOptionsMenu(final Menu menu) {
-		MenuInflater inflater = this.getMenuInflater();
-		inflater.inflate(R.menu.menu, menu);
+		this.getMenuInflater().inflate(R.menu.menu, menu);
+		this.miCalc = menu.findItem(R.id.item_calculate);
 		return true;
 	}
 
@@ -208,6 +197,16 @@ public class OTPdroid extends Activity implements BeerLicense, OnClickListener {
 	@Override
 	public final boolean onOptionsItemSelected(final MenuItem item) {
 		switch (item.getItemId()) {
+		case R.id.item_calculate:
+			OTPdroid.this.calc();
+			OTPdroid.didCalc = true;
+			return true;
+		case R.id.item_prev:
+			this.prev();
+			return true;
+		case R.id.item_next:
+			this.next();
+			return true;
 		case R.id.item_about: // start about dialog
 			this.showDialog(DIALOG_ABOUT);
 			return true;
@@ -255,6 +254,8 @@ public class OTPdroid extends Activity implements BeerLicense, OnClickListener {
 		}
 		final byte falgo = algo;
 		new AsyncTask<Void, Void, String>() {
+			private Dialog d = null;
+
 			@Override
 			protected String doInBackground(final Void... arg0) {
 				try {
@@ -299,7 +300,12 @@ public class OTPdroid extends Activity implements BeerLicense, OnClickListener {
 
 			@Override
 			protected void onPreExecute() {
-				OTPdroid.this.calc.setEnabled(false);
+				this.d = ProgressDialog.show(OTPdroid.this, null, OTPdroid.this
+						.getString(R.string.please_wait_), false);
+
+				if (OTPdroid.this.miCalc != null) {
+					OTPdroid.this.miCalc.setEnabled(false);
+				}
 			}
 
 			@Override
@@ -309,7 +315,12 @@ public class OTPdroid extends Activity implements BeerLicense, OnClickListener {
 				} else {
 					OTPdroid.this.response.setText(result);
 				}
-				OTPdroid.this.calc.setEnabled(true);
+				if (OTPdroid.this.miCalc != null) {
+					OTPdroid.this.miCalc.setEnabled(true);
+				}
+				if (this.d != null) {
+					this.d.cancel();
+				}
 			}
 
 		} // .
@@ -452,7 +463,7 @@ public class OTPdroid extends Activity implements BeerLicense, OnClickListener {
 	}
 
 	/**
-	 * Load imei and simid from phone.
+	 * Load IMEI and SIMID from phone.
 	 */
 	private void loadKeys() {
 		TelephonyManager phone = (TelephonyManager) this
@@ -469,14 +480,14 @@ public class OTPdroid extends Activity implements BeerLicense, OnClickListener {
 	@Override
 	protected final Dialog onCreateDialog(final int id) {
 		AlertDialog.Builder builder;
-		Dialog d;
 		switch (id) {
 		case DIALOG_ABOUT:
-			d = new Dialog(this);
-			d.setContentView(R.layout.about);
-			d.setTitle(this.getString(R.string.about_) + " v"
+			builder = new AlertDialog.Builder(this);
+			builder.setTitle(this.getString(R.string.about_) + " v"
 					+ this.getString(R.string.app_version));
-			return d;
+			builder.setPositiveButton(android.R.string.ok, null);
+			builder.setView(View.inflate(this, R.layout.about, null));
+			return builder.create();
 		case DIALOG_UPDATE:
 			builder = new AlertDialog.Builder(this);
 			builder.setTitle(R.string.changelog_);

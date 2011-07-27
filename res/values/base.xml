@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_version">1.8</string>
+	<string name="app_name">OTPdroid</string>
+	<string-array name="hash_methods">
+		<item>sha1</item>
+		<item>md5</item>
+	</string-array>
+
+	<style name="Theme.SherlockUb0r" parent="style/Theme.Sherlock">
+		<item name="abBackground">#FF353535</item>
+	</style>
+</resources>

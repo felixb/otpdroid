@@ -3,7 +3,7 @@
 	android:layout_width="fill_parent" android:layout_height="fill_parent">
 	<LinearLayout android:layout_width="fill_parent"
 		android:layout_height="fill_parent" android:orientation="vertical"
-		android:paddingLeft="5dip" android:paddingRight="5dip">
+		android:padding="15dip" android:layout_gravity="center_vertical">
 		<TextView android:layout_width="wrap_content"
 			android:layout_height="wrap_content" android:text="@string/passphrase_"
 			android:textStyle="bold" />
@@ -14,7 +14,8 @@
 			android:layout_height="wrap_content" android:text="@string/challenge_"
 			android:textStyle="bold" />
 		<LinearLayout android:layout_width="fill_parent"
-			android:layout_height="wrap_content" android:orientation="horizontal">
+			android:layout_height="wrap_content" android:orientation="horizontal"
+			android:layout_marginTop="15dip">
 			<Spinner android:id="@+id/hash_method" android:layout_height="fill_parent"
 				android:layout_width="wrap_content" android:prompt="@string/method_promt" />
 			<EditText android:id="@+id/sequence" android:layout_width="wrap_content"
@@ -26,7 +27,7 @@
 		</LinearLayout>
 		<TextView android:layout_width="wrap_content"
 			android:layout_height="wrap_content" android:text="Response"
-			android:textStyle="bold" />
+			android:textStyle="bold" android:layout_marginTop="15dip" />
 		<EditText android:id="@+id/response" android:layout_width="fill_parent"
 			android:layout_height="wrap_content" android:editable="false" />
 	</LinearLayout>

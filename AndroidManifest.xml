@@ -1,25 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 	<!--
-		Copyright (C) 2009 Felix Bechstein
+		Copyright (C) 2009-2011 Felix Bechstein
 	-->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 	android:versionCode="155" android:versionName="1.8"
 	package="de.ub0r.android.otpdroid" android:installLocation="auto">
 	<application android:icon="@drawable/icon" android:label="@string/app_name"
 		android:configChanges="orientation|keyboard|keyboardHidden|fontScale"
-		android:windowSoftInputMode="adjustResize">
-		<activity android:label="@string/app_name" android:name="OTPdroid">
+		android:windowSoftInputMode="adjustResize"
+		android:hardwareAccelerated="true">
+		<activity android:name="OTPdroid" android:label="@string/app_name"
+			android:theme="@style/Theme.SherlockUb0r">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
-		<activity android:name=".Preferences" android:label="@string/app_name" />
+		<activity android:name=".Preferences" android:label="@string/settings" />
 	</application>
-	<uses-sdk android:minSdkVersion="3" android:targetSdkVersion="4" />
+	<uses-sdk android:minSdkVersion="4" android:targetSdkVersion="13" />
 	<supports-screens android:smallScreens="true"
 		android:normalScreens="true" android:largeScreens="true"
-		android:anyDensity="true" />
+		android:anyDensity="true" android:xlargeScreens="true" />
 	<uses-feature android:name="android.hardware.touchscreen"
 		android:required="false" />
 	<uses-permission android:name="android.permission.READ_PHONE_STATE" />
