@@ -4,7 +4,8 @@
 	-->
 <resources>
 	<string-array name="updates">
-		<item>v2.0: Use the actionbar, add german translation</item>
+		<item>v2.1: convert challenge to lower case</item>
+		<item>v2.0: use the actionbar, add german translation</item>
 		<item>v1.8: copy response to clipboard, switch off time</item>
 		<item>v1.7.1: fix links/icons</item>
 		<item>v1.7: fix layout</item>

@@ -265,7 +265,7 @@ public class OTPdroid extends FragmentActivity implements BeerLicense {
 					String finalResponse = "";
 					for (int i = 0; i < numberOfResponses && seq >= 0; i++) {
 						final String seed = OTPdroid.this.challenge.getText()
-								.toString();
+								.toString().toLowerCase();
 						final String pass = OTPdroid.this.passphrase.getText()
 								.toString();
 
