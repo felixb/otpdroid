@@ -29,7 +29,7 @@ import de.ub0r.android.lib.Market;
  */
 public class OTPdroid extends FragmentActivity implements BeerLicense {
 	/** Tag for output. */
-	private static final String TAG = "OTPdroid";
+	// private static final String TAG = "OTPdroid";
 
 	/** Dialog: about. */
 	private static final int DIALOG_ABOUT = 0;
@@ -102,7 +102,7 @@ public class OTPdroid extends FragmentActivity implements BeerLicense {
 				.createFromResource(this, R.array.hash_methods,
 						android.R.layout.simple_spinner_item);
 		adapter.setDropDownViewResource(// .
-				android.R.layout.simple_spinner_dropdown_item);
+		android.R.layout.simple_spinner_dropdown_item);
 		this.hashMethod.setAdapter(adapter);
 
 		if (this.imei == null || this.simid == null) {
@@ -225,11 +225,17 @@ public class OTPdroid extends FragmentActivity implements BeerLicense {
 	/**
 	 * Calculate the response.
 	 */
+	@SuppressWarnings("deprecation")
 	private void calc() {
 		final SharedPreferences p = PreferenceManager
 				.getDefaultSharedPreferences(this);
-		final int numberOfResponses = Integer.parseInt(p.getString(
-				PREF_NUMBEROFRESPONSES, "1"));
+		int n;
+		try {
+			n = Integer.parseInt(p.getString(PREF_NUMBEROFRESPONSES, "1"));
+		} catch (NumberFormatException e) {
+			n = 1;
+		}
+		final int numberOfResponses = n;
 		final boolean showTime = p.getBoolean(PREF_SHOWTIME, true);
 		final boolean copyResponse = p.getBoolean(PREF_COPYRESPONSE, true);
 		final String eol = System.getProperty("line.separator");
@@ -300,8 +306,8 @@ public class OTPdroid extends FragmentActivity implements BeerLicense {
 
 			@Override
 			protected void onPreExecute() {
-				this.d = ProgressDialog.show(OTPdroid.this, null, OTPdroid.this
-						.getString(R.string.please_wait_), false);
+				this.d = ProgressDialog.show(OTPdroid.this, null,
+						OTPdroid.this.getString(R.string.please_wait_), false);
 
 				if (OTPdroid.this.miCalc != null) {
 					OTPdroid.this.miCalc.setEnabled(false);
@@ -324,7 +330,7 @@ public class OTPdroid extends FragmentActivity implements BeerLicense {
 			}
 
 		} // .
-				.execute((Void) null);
+		.execute((Void) null);
 	}
 
 	/**
