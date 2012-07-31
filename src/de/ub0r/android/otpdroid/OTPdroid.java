@@ -12,14 +12,17 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.view.Menu;
-import android.support.v4.view.MenuItem;
 import android.telephony.TelephonyManager;
 import android.text.ClipboardManager;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+
 import de.ub0r.android.lib.Market;
 
 /**
@@ -27,7 +30,7 @@ import de.ub0r.android.lib.Market;
  * 
  * @author flx
  */
-public class OTPdroid extends FragmentActivity implements BeerLicense {
+public class OTPdroid extends SherlockActivity implements BeerLicense {
 	/** Tag for output. */
 	// private static final String TAG = "OTPdroid";
 
@@ -186,7 +189,7 @@ public class OTPdroid extends FragmentActivity implements BeerLicense {
 	 */
 	@Override
 	public final boolean onCreateOptionsMenu(final Menu menu) {
-		this.getMenuInflater().inflate(R.menu.menu, menu);
+		this.getSupportMenuInflater().inflate(R.menu.menu, menu);
 		this.miCalc = menu.findItem(R.id.item_calculate);
 		return true;
 	}

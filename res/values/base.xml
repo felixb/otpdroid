@@ -6,8 +6,4 @@
 		<item>sha1</item>
 		<item>md5</item>
 	</string-array>
-
-	<style name="Theme.SherlockUb0r" parent="style/Theme.Sherlock">
-		<item name="abBackground">#FF353535</item>
-	</style>
 </resources>
