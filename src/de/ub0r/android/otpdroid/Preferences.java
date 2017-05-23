@@ -11,7 +11,7 @@ import de.ub0r.android.lib.Utils;
  * 
  * @author flx
  */
-public class Preferences extends PreferenceActivity implements BeerLicense {
+public class Preferences extends PreferenceActivity {
 	/**
 	 * {@inheritDoc}
 	 */

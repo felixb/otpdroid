@@ -30,7 +30,7 @@ import de.ub0r.android.lib.Market;
  * 
  * @author flx
  */
-public class OTPdroid extends SherlockActivity implements BeerLicense {
+public class OTPdroid extends SherlockActivity {
 	/** Tag for output. */
 	// private static final String TAG = "OTPdroid";
 

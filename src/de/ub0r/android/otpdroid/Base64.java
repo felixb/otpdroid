@@ -6,10 +6,8 @@ import java.io.IOException;
 
 /**
  * Base64 en|de-coder
- * 
- * @version: $Revision: 1.1 $
  */
-public class Base64 implements BeerLicense {
+public class Base64 {
 	/**
 	 * The base64 alphabet in byte values
 	 */

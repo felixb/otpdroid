@@ -6,7 +6,7 @@ import java.security.NoSuchAlgorithmException;
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
-public class AES implements BeerLicense {
+public class AES {
 	private byte[] key;
 	private byte[] input;
 	private byte[] output;

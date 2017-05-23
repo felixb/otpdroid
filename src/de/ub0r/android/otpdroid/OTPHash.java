@@ -8,7 +8,7 @@ import java.security.NoSuchAlgorithmException;
  * 
  * @author Daniel Tryba
  */
-public class OTPHash implements BeerLicense {
+public class OTPHash {
 	public OTPHash() {
 	}
 
